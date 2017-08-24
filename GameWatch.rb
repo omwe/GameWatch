@@ -19,17 +19,19 @@
 #   Parsing data
 
 require_relative 'espn'
+require 'byebug'
 
 module GameWatch
-    MAJOR_SPORTS = ['mens-college-basketball',
-                    'womens-college-basketball',
-                    'college-football',
-                    'nfl',
-                    'nba',
-                    'mlb',
-                    'nhl']
-    
+    # MAJOR_SPORTS = {'mens-college-basketball' => {'id' => 'ncb'},
+                    # 'womens-college-basketball' => {'id' => 'ncw'},
+                    # 'college-football' => {'id' => 'ncf'},
+                    # 'nfl' => {'id' => 'nfl'},
+                    # 'nba' => {'id' => 'nba'},
+                    # 'mlb' => {'id' => 'mlb'},
+                    # 'nhl' => {'id' => 'nhl'}}
+    #MAJOR_SPORTS = {'college-football' => {'id' => 'ncf'}}\
+    MAJOR_SPORTS = {'mlb' => {'id' => 'mlb'}}
 end
 
 # Launch the app
-GameWatch::ESPN.new
+GameWatch::ESPN.get_upcoming_games
