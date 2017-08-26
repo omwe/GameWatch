@@ -1,0 +1,12 @@
+require_relative '../lib/framework'
+require 'byebug'
+
+server = Framework::ThinServer.new do |config|
+    config[:Port] = 3000
+    config[:Host] = "0.0.0.0"
+    config[:max_connections] = 3
+end
+
+# With optional argument
+server.daemonize if ARGV.empty?
+server.start

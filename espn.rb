@@ -10,10 +10,19 @@ module GameWatch
     
         # This function is the handler for the ESPN class
         def self.get_upcoming_games
+            data = {'future' => {},
+                    'current' => {},
+                    'past' => {}
+                }
             # Loop through the different sports
             MAJOR_SPORTS.each_key do |sport|
-                download_data(sport)
+                sport_data = download_data(sport)
+                ['future', 'current', 'past'].each do |key|
+                    data[key].merge!( sport_data[key] )
+                end
             end
+            byebug
+            puts data.inspect
         end
         
         # Private methods only for ESPN class usage
@@ -24,10 +33,11 @@ module GameWatch
             url = "http://www.espn.com/#{sport}/bottomline/scores"
             begin
                 sport_raw = URI.parse( url ).read
-                sport_info = ScoreParser.parse( sport, sport_raw )
+                all_sport_games = ScoreParser.parse( sport, sport_raw )
             rescue OpenURI::HTTPError => each
                 raise "The ESPN page #{url} cannot be accessed right now: #{e}"
             end
+            return all_sport_games
         end # download_data
         
         # Functions to check if connection established, etc.
