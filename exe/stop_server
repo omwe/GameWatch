@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh 
 
 echo "Killing server..."
 kill -INT $(cat /tmp/pids/thin.pid)

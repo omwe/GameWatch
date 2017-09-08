@@ -8,7 +8,7 @@ module GameWatch
         def self.parse( sport, html )
             newline_delimiter       = /#{MAJOR_SPORTS[sport]['id']}_s_left\d+=/
             first_line_delimiter    = /&#{MAJOR_SPORTS[sport]['id']}_s_delay=/
-            current_or_past_game    = /^\^?(?<ranking1>\(\d+\))?\s*\^?(?<team1>.+?)\s*(?<score1>\d+)\s*\^?(?<ranking2>\(\d+\))?\s*\^?(?<team2>.+?)\s*(?<score2>\d+)\s*((?<time_left>\(((\d+:\d+\s*IN\s*(1ST|2ND|3RD|4TH|(\w*\sOT))|HALFTIME|FINAL.*)|((BOT|TOP)\s\d+(TH|ND|ST))|(END\sOF\s(1ST|2ND|4TH))|)\)))/
+            current_or_past_game    = /^\^?(?<ranking1>\(\d+\))?\s*\^?(?<team1>.+?)\s*(?<score1>\d+)\s*\^?(?<ranking2>\(\d+\))?\s*\^?(?<team2>.+?)\s*(?<score2>\d+)\s*((?<time_left>\(((\d+:\d+\s*IN\s*(1ST|2ND|3RD|4TH|(\w*\sOT))|CANCELLED|HALFTIME|FINAL.*)|((BOT|TOP)\s\d+(TH|ND|ST))|(END\sOF\s(1ST|2ND|4TH))|)\)))/
             future_game             = /^\^?(?<ranking1>\(\d+\))?\s*\^?(?<team1>.+?)\s+(at)+\s*\^?(?<ranking2>\(\d+\))?\s*(?<team2>.+?)\s+((?<start_time>\(\w*,?\s?\w*\s?\d*\s?\d+:\d+\s*(AM|PM)\s*ET\)))/
             
             game_data = {   'future' => {sport => []},
@@ -22,7 +22,6 @@ module GameWatch
                 # Clean up the HTML to more readable text
                 line = raw_line.gsub( '%20', ' ' )
                 line = line.gsub( '%26', 'and' )
-                #puts line
                 timeframe = ""
                 case line
                     when future_game
@@ -30,6 +29,7 @@ module GameWatch
                     when current_or_past_game
                         timeframe = line.include?( "(FINAL" ) ? "past" : "current"
                     else
+                        byebug
                         raise "Was not able to parse line: #{line}"
                 end
                 # Pseudo variable to get info of last match group from $1-$9

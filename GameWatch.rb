@@ -22,13 +22,13 @@ require_relative 'espn'
 require 'byebug'
 
 module GameWatch
-    MAJOR_SPORTS = {'mens-college-basketball' => {'id' => 'ncb'},
-                    'womens-college-basketball' => {'id' => 'ncw'},
-                    'college-football' => {'id' => 'ncf'},
-                    'nfl' => {'id' => 'nfl'},
-                    'nba' => {'id' => 'nba'},
-                    'mlb' => {'id' => 'mlb'},
-                    'nhl' => {'id' => 'nhl'}}
+    MAJOR_SPORTS = {'mens-college-basketball' => {'id' => 'ncb', 'verbose' => 'basketball'},
+                    'womens-college-basketball' => {'id' => 'ncw', 'verbose' => 'womens basketball'},
+                    'college-football' => {'id' => 'ncf', 'verbose' => 'football'},
+                    'nfl' => {'id' => 'nfl', 'verbose' => 'nfl'},
+                    'nba' => {'id' => 'nba', 'verbose' => 'nba'},
+                    'mlb' => {'id' => 'mlb', 'verbose' => 'baseball'},
+                    'nhl' => {'id' => 'nhl', 'verbose' => 'hockey'}}
     #MAJOR_SPORTS = {'college-football' => {'id' => 'ncf'}}\
     #MAJOR_SPORTS = {'mlb' => {'id' => 'mlb'}}
 end
